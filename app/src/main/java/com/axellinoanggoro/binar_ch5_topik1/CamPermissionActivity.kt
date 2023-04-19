@@ -17,6 +17,9 @@ import java.io.File
 class CamPermissionActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCamPermissionBinding
+    private val REQUEST_CODE = 13
+    private lateinit var filePhoto: File
+    private val FILE_NAME = "photo.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +71,7 @@ class CamPermissionActivity : AppCompatActivity() {
     companion object {
         private val IMAGE_CHOOSE = 1000;
         private val PERMISSION_CODE = 1001;
+        private const val REQUEST_CODE = 13
     }
 
 
@@ -102,17 +106,13 @@ class CamPermissionActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val takenPhoto = BitmapFactory.decodeFile(filePhoto.absolutePath)
-            viewImage.setImageBitmap(takenPhoto)
+            binding.viewImage.setImageBitmap(takenPhoto)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            viewImage.setImageURI(data?.data)
+            binding.viewImage.setImageURI(data?.data)
         }
 
     }
 }
-
-private const val REQUEST_CODE = 13
-private lateinit var filePhoto: File
-private const val FILE_NAME = "photo.jpg"
